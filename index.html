@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Backstage™ by EsNova Partners</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#0A0A0A;--white:#FFFFFF;--gray:#888888;--dark:#000000;--card:#161616;--border:rgba(255,255,255,0.08);}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--navy);color:var(--white);overflow-x:hidden;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,0,0,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.nav-logo{display:flex;align-items:center;gap:12px;}
+.nav-logo svg{width:40px;height:28px;}
+.nav-brand{font-size:15px;font-weight:500;color:var(--white);}
+.nav-brand span{color:rgba(255,255,255,0.35);font-size:11px;display:block;letter-spacing:3px;font-weight:400;}
+.nav-right{display:flex;align-items:center;gap:20px;}
+.nav-links{display:flex;gap:28px;list-style:none;}
+.nav-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.nav-links a:hover{color:var(--white);}
+.nav-cta{background:var(--white);color:#000;padding:10px 22px;border-radius:4px;font-size:13px;font-weight:500;text-decoration:none;transition:opacity 0.2s;}
+.nav-cta:hover{opacity:0.85;}
+
+/* LANG TOGGLE */
+.lang-toggle{display:flex;background:rgba(255,255,255,0.05);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.lang-btn{padding:6px 14px;font-size:12px;font-weight:500;color:rgba(255,255,255,0.4);cursor:pointer;border:none;background:transparent;transition:all 0.2s;letter-spacing:1px;}
+.lang-btn.active{background:var(--white);color:#000;}
+.lang-btn:hover:not(.active){color:var(--white);}
+
+/* HERO */
+.hero{min-height:100vh;background:#000;display:flex;align-items:center;position:relative;overflow:hidden;padding:120px 48px 80px;}
+.hero::before{content:'';position:absolute;top:-40%;right:-20%;width:70%;height:140%;background:radial-gradient(ellipse,rgba(255,255,255,0.025) 0%,transparent 65%);pointer-events:none;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.12),transparent);}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.hero-eyebrow{font-size:11px;letter-spacing:3px;color:rgba(255,255,255,0.35);margin-bottom:24px;text-transform:uppercase;}
+.hero-title{font-family:'DM Serif Display',serif;font-size:130px;line-height:0.95;color:var(--white);margin-bottom:16px;letter-spacing:-3px;}
+.hero-title sup{font-size:24px;vertical-align:super;}
+.hero-sub{font-size:20px;color:rgba(255,255,255,0.55);margin-bottom:16px;font-weight:300;line-height:1.6;}
+.hero-tagline{font-family:'DM Serif Display',serif;font-style:italic;font-size:18px;color:rgba(255,255,255,0.4);margin-bottom:48px;}
+.hero-btns{display:flex;gap:16px;flex-wrap:wrap;}
+.btn-primary{background:var(--white);color:#000;padding:16px 36px;border-radius:4px;font-size:15px;font-weight:500;text-decoration:none;transition:opacity 0.2s;}
+.btn-primary:hover{opacity:0.85;}
+.btn-secondary{border:1px solid rgba(255,255,255,0.2);color:var(--white);padding:16px 36px;border-radius:4px;font-size:15px;text-decoration:none;transition:all 0.2s;}
+.btn-secondary:hover{border-color:rgba(255,255,255,0.5);}
+.hero-right{display:flex;flex-direction:column;gap:14px;}
+.hero-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:8px;padding:18px 22px;display:flex;align-items:center;gap:16px;transition:border-color 0.2s;}
+.hero-card:hover{border-color:rgba(255,255,255,0.15);}
+.hero-card-icon{width:38px;height:38px;background:rgba(255,255,255,0.05);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.hero-card-text{font-size:13px;color:rgba(255,255,255,0.55);line-height:1.5;}
+.hero-card-text strong{color:var(--white);display:block;font-size:14px;margin-bottom:2px;}
+.hero-badge{margin-top:8px;display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.1);border-radius:4px;padding:8px 16px;font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;}
+
+/* SECTIONS */
+section{padding:100px 48px;}
+.section-inner{max-width:1200px;margin:0 auto;}
+.section-label{font-size:11px;letter-spacing:4px;color:rgba(255,255,255,0.35);font-weight:400;text-transform:uppercase;margin-bottom:16px;}
+.section-title{font-family:'DM Serif Display',serif;font-size:48px;line-height:1.1;margin-bottom:20px;color:var(--white);}
+.section-sub{font-size:18px;color:var(--gray);line-height:1.6;max-width:560px;}
+
+/* PROBLEM */
+.problem{background:#0D0D0D;}
+.problem-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:56px;}
+.problem-card{background:var(--card);border-radius:8px;padding:28px 20px;border:1px solid var(--border);border-top:1px solid rgba(255,255,255,0.15);}
+.problem-card-icon{font-size:26px;margin-bottom:14px;}
+.problem-card h3{font-size:14px;font-weight:500;color:var(--white);margin-bottom:8px;}
+.problem-card p{font-size:12px;color:var(--gray);line-height:1.6;}
+.problem-bottom{margin-top:40px;background:var(--card);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:24px 32px;text-align:center;}
+.problem-bottom p{color:var(--white);font-size:16px;}
+.problem-bottom span{font-weight:500;border-bottom:1px solid rgba(255,255,255,0.3);}
+
+/* SERVICES */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:56px;}
+.service-card{background:var(--card);border-radius:8px;padding:28px;border:1px solid var(--border);border-left:2px solid rgba(255,255,255,0.2);transition:transform 0.2s;}
+.service-card:hover{transform:translateY(-4px);}
+.service-card.optional{border-left-color:rgba(255,255,255,0.08);}
+.service-card-icon{font-size:26px;margin-bottom:14px;}
+.service-card h3{font-size:15px;font-weight:500;color:var(--white);margin-bottom:8px;}
+.service-card p{font-size:13px;color:var(--gray);line-height:1.6;}
+.service-badge{display:inline-block;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.35);font-size:10px;letter-spacing:2px;padding:2px 8px;border-radius:2px;margin-bottom:10px;border:1px solid rgba(255,255,255,0.08);}
+
+/* PRICING */
+.pricing{background:#0D0D0D;}
+.pricing-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:56px;}
+.pricing-card{background:var(--card);border-radius:8px;padding:32px 24px;border:1px solid var(--border);position:relative;transition:border-color 0.2s;}
+.pricing-card:hover{border-color:rgba(255,255,255,0.15);}
+.pricing-card.featured{background:#0A0A0A;border:1px solid rgba(255,255,255,0.35);}
+.popular-badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--white);color:#000;font-size:11px;font-weight:500;padding:4px 16px;border-radius:20px;white-space:nowrap;}
+.pricing-name{font-size:12px;letter-spacing:3px;color:rgba(255,255,255,0.4);margin-bottom:16px;text-transform:uppercase;}
+.pricing-price{font-family:'DM Serif Display',serif;font-size:48px;color:var(--white);line-height:1;}
+.pricing-period{font-size:13px;color:var(--gray);margin-bottom:8px;}
+.pricing-desc{font-size:13px;color:var(--gray);margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid var(--border);}
+.pricing-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:32px;}
+.pricing-list li{font-size:13px;color:var(--gray);padding-left:20px;position:relative;line-height:1.4;}
+.pricing-list li::before{content:'✓';position:absolute;left:0;color:rgba(255,255,255,0.35);}
+.pricing-btn{display:block;text-align:center;padding:12px;border-radius:4px;font-size:14px;font-weight:500;text-decoration:none;transition:all 0.2s;}
+.pricing-btn-outline{border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);}
+.pricing-btn-outline:hover{background:var(--white);color:#000;}
+.pricing-btn-solid{background:var(--white);color:#000;}
+.pricing-btn-solid:hover{opacity:0.85;}
+.pricing-note{margin-top:32px;text-align:center;font-size:13px;color:var(--gray);}
+.pricing-note strong{color:var(--white);}
+
+/* STEPS */
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:56px;}
+.step-card{background:var(--card);border-radius:8px;padding:32px;border:1px solid var(--border);}
+.step-num{width:40px;height:40px;border-radius:50%;background:var(--white);color:#000;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;margin-bottom:16px;}
+.step-period{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-bottom:8px;text-transform:uppercase;}
+.step-card h3{font-size:15px;font-weight:500;color:var(--white);margin-bottom:8px;}
+.step-card p{font-size:13px;color:var(--gray);line-height:1.6;}
+
+/* TEAM */
+.team{background:#0D0D0D;}
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px;}
+.team-card{background:var(--card);border:1px solid var(--border);border-radius:8px;overflow:hidden;transition:border-color 0.2s;}
+.team-card:hover{border-color:rgba(255,255,255,0.15);}
+.team-avatar{width:100%;height:220px;background:#1A1A1A;display:flex;align-items:center;justify-content:center;font-size:64px;}
+.team-card-body{padding:24px;}
+.team-card-name{font-size:18px;font-weight:500;color:var(--white);margin-bottom:4px;}
+.team-card-role{font-size:11px;letter-spacing:2px;color:rgba(255,255,255,0.3);margin-bottom:14px;text-transform:uppercase;}
+.team-card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;}
+.team-tag{font-size:11px;background:rgba(255,255,255,0.04);color:rgba(255,255,255,0.45);padding:4px 10px;border-radius:2px;border:1px solid rgba(255,255,255,0.08);}
+.team-card-desc{font-size:13px;color:var(--gray);line-height:1.6;}
+
+/* CTA */
+.cta{background:#000;text-align:center;padding:140px 48px;position:relative;}
+.cta::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);}
+.cta-title{font-family:'DM Serif Display',serif;font-size:100px;color:var(--white);margin-bottom:24px;line-height:1;letter-spacing:-3px;}
+.cta-tagline{font-family:'DM Serif Display',serif;font-style:italic;font-size:20px;color:rgba(255,255,255,0.35);margin-bottom:48px;}
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
+.cta-info{margin-top:32px;font-size:13px;color:rgba(255,255,255,0.22);}
+
+/* FOOTER */
+footer{background:#000;padding:48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;border-top:1px solid var(--border);}
+.footer-logo{font-size:18px;font-weight:500;color:var(--white);}
+.footer-logo span{color:rgba(255,255,255,0.25);font-size:11px;display:block;letter-spacing:3px;}
+.footer-links{display:flex;gap:24px;list-style:none;}
+.footer-links a{color:rgba(255,255,255,0.28);text-decoration:none;font-size:13px;transition:color 0.2s;}
+.footer-links a:hover{color:var(--white);}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.2);}
+
+/* ANIM */
+.fade-up{opacity:0;transform:translateY(28px);transition:opacity 0.65s ease,transform 0.65s ease;}
+.fade-up.visible{opacity:1;transform:none;}
+
+/* ENTERPRISE CARD */
+.enterprise-card{border:2px dashed rgba(255,255,255,0.1);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:300px;}
+
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;}
+  .hero-right{display:none;}
+  .hero-title{font-size:52px;}
+  .problem-grid{grid-template-columns:repeat(2,1fr);}
+  .services-grid{grid-template-columns:repeat(2,1fr);}
+  .pricing-grid{grid-template-columns:repeat(2,1fr);}
+  .steps-grid{grid-template-columns:1fr;}
+  .team-grid{grid-template-columns:1fr;}
+  nav{padding:16px 20px;}
+  .nav-links{display:none;}
+  section{padding:72px 24px;}
+  .cta-title{font-size:64px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg viewBox="0 0 80 56" fill="none">
+      <circle cx="10" cy="28" r="9" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+      <circle cx="10" cy="28" r="4" fill="#FFFFFF" opacity="0.5"/>
+      <circle cx="70" cy="28" r="9" stroke="#FFFFFF" stroke-width="2" opacity="0.5"/>
+      <circle cx="70" cy="28" r="4" fill="#FFFFFF" opacity="0.5"/>
+      <path d="M19 28 Q40 4 61 28" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.5"/>
+      <circle cx="40" cy="10" r="5" fill="#FFFFFF"/>
+    </svg>
+    <div class="nav-brand">EsNova Partners<span>BACKSTAGE™</span></div>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services" data-ja="サービス" data-en="Services">サービス</a></li>
+    <li><a href="#pricing" data-ja="料金" data-en="Pricing">料金</a></li>
+    <li><a href="#steps" data-ja="設立ステップ" data-en="How It Works">設立ステップ</a></li>
+    <li><a href="#team" data-ja="チーム" data-en="Team">チーム</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('ja')">JP</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+    </div>
+    <a href="#contact" class="nav-cta" data-ja="無料相談" data-en="Get Started">無料相談</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <p class="hero-eyebrow">by EsNova Partners, Inc. &nbsp;|&nbsp; Bellevue, Washington</p>
+      <h1 class="hero-title">Backstage<sup>™</sup></h1>
+      <p class="hero-sub" data-ja="日本スタートアップの米国進出を、<br>バックオフィスから支えるCFOサブスクリプション" data-en="The back-office CFO subscription for<br>Japanese startups expanding to the U.S.">日本スタートアップの米国進出を、<br>バックオフィスから支えるCFOサブスクリプション</p>
+      <p class="hero-tagline">We handle the back. You lead the front.</p>
+      <div class="hero-btns">
+        <a href="#contact" class="btn-primary" data-ja="無料相談を予約する" data-en="Book a Free Consultation">無料相談を予約する</a>
+        <a href="#services" class="btn-secondary" data-ja="サービスを見る" data-en="See Services">サービスを見る</a>
+      </div>
+      <div class="hero-badge" style="margin-top:32px;">
+        <span data-ja="★ JETRO公式アクセラレーター連携パートナー" data-en="★ Official JETRO Accelerator Partner">★ JETRO公式アクセラレーター連携パートナー</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card"><div class="hero-card-icon">🏢</div><div class="hero-card-text"><strong data-ja="法人設立" data-en="U.S. Entity Formation">法人設立</strong><span data-ja="米国法人を最短2日で設立。EIN同時取得。" data-en="Delaware C-Corp with EIN in as little as 2 days.">米国法人を最短2日で設立。EIN同時取得。</span></div></div>
+      <div class="hero-card"><div class="hero-card-icon">🏦</div><div class="hero-card-text"><strong data-ja="銀行口座開設・資金管理" data-en="U.S. Bank Account &amp; Cash Management">銀行口座開設・資金管理</strong><span data-ja="非米国人でもスムーズに開設。" data-en="Opened smoothly — even for non-U.S. residents.">非米国人でもスムーズに開設。</span></div></div>
+      <div class="hero-card"><div class="hero-card-icon">📊</div><div class="hero-card-text"><strong data-ja="経理・会計運用" data-en="Accounting & Financials">経理・会計運用</strong><span data-ja="日本人スタッフが月次レポートを作成。" data-en="Monthly reports, P&L, and annual statements handled.">日本人スタッフが月次レポートを作成。</span></div></div>
+      <div class="hero-card"><div class="hero-card-icon">✈️</div><div class="hero-card-text"><strong data-ja="ビザ申請書類サポート" data-en="Visa Application Support">ビザ申請書類サポート</strong><span data-ja="E-2・L-1・O-1、提携弁護士と連携。" data-en="E-2, L-1, O-1 — partnered attorneys coordinate all.">E-2・L-1・O-1、提携弁護士と連携。</span></div></div>
+      <div class="hero-card"><div class="hero-card-icon">📈</div><div class="hero-card-text"><strong data-ja="税務申告・税務戦略" data-en="Tax Filing &amp; Strategy">税務申告・税務戦略</strong><span data-ja="クロスボーダーにおける税務戦略をサポート。" data-en="Cross-border tax strategy and U.S. tax filing.">クロスボーダーにおける税務戦略をサポート。</span></div></div>
+      <div class="hero-card"><div class="hero-card-icon">💼</div><div class="hero-card-text"><strong data-ja="資金調達サポート" data-en="Fundraising Support">資金調達サポート</strong><span data-ja="ピッチデッキ支援・VCリスト作成・財務モデル構築。" data-en="Pitch deck support, VC introductions, financial modeling.">ピッチデッキ支援・VCリスト作成・財務モデル構築。</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-ja="Problem" data-en="The Problem">Problem</p>
+    <h2 class="section-title fade-up" data-ja="日本スタートアップが<br>米国進出で直面する5つの壁" data-en="5 walls every Japanese startup hits<br>when entering the U.S. market">日本スタートアップが<br>米国進出で直面する5つの壁</h2>
+    <div class="problem-grid">
+      <div class="problem-card fade-up"><div class="problem-card-icon">⚖️</div><h3 data-ja="法律・契約" data-en="Legal & Contracts">法律・契約</h3><p data-ja="Delaware C-Corpの設立方法がわからない。契約書の英語が読めない。弁護士の探し方も不明。" data-en="Unclear how to form a Delaware C-Corp. Contracts are in English. Finding the right attorney feels impossible.">Delaware C-Corpの設立方法がわからない。契約書の英語が読めない。弁護士の探し方も不明。</p></div>
+      <div class="problem-card fade-up"><div class="problem-card-icon">💰</div><h3 data-ja="財務・会計" data-en="Finance & Accounting">財務・会計</h3><p data-ja="米国銀行口座の開設に手間取る。経理ツールの設定・運用ができない。" data-en="Opening a U.S. bank account takes weeks. Setting up accounting tools without local knowledge is a nightmare.">米国銀行口座の開設に手間取る。経理ツールの設定・運用ができない。</p></div>
+      <div class="problem-card fade-up"><div class="problem-card-icon">📋</div><h3 data-ja="バックオフィス" data-en="Back-Office Operations">バックオフィス</h3><p data-ja="請求書・支払い・書類管理で経営者の時間が奪われる。コアビジネスに集中できない。" data-en="Invoicing, payments, and paperwork consume the founder's time. Core business suffers.">請求書・支払い・書類管理で経営者の時間が奪われる。コアビジネスに集中できない。</p></div>
+      <div class="problem-card fade-up"><div class="problem-card-icon">🛂</div><h3 data-ja="就労ビザ" data-en="Work Visa">就労ビザ</h3><p data-ja="創業者・社員のビザ取得が複雑。E-2・L-1・H-1B等の選択判断が困難。" data-en="E-2, L-1, H-1B — choosing the right visa type and managing paperwork is overwhelming.">創業者・社員のビザ取得が複雑。E-2・L-1・H-1B等の選択判断が困難。</p></div>
+      <div class="problem-card fade-up"><div class="problem-card-icon">🚀</div><h3 data-ja="Go-To-Market" data-en="Go-To-Market">Go-To-Market</h3><p data-ja="現地顧客開拓・マーケ戦略が立てられない。商習慣・営業ネットワークが不足。" data-en="No local network. No playbook. U.S. business customs are hard to navigate alone.">現地顧客開拓・マーケ戦略が立てられない。商習慣・営業ネットワークが不足。</p></div>
+    </div>
+    <div class="problem-bottom fade-up">
+      <p><span data-ja="これらすべてを、月額一定料金でまるごと解決するのが " data-en="All of this — solved under one monthly flat fee by ">これらすべてを、月額一定料金でまるごと解決するのが </span><span style="font-weight:500;border-bottom:1px solid rgba(255,255,255,0.3);">Backstage™</span><span data-ja=" です。" data-en="."> です。</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" style="background:#0A0A0A;padding:100px 48px;">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-ja="Solution" data-en="Services">Solution</p>
+    <h2 class="section-title fade-up" data-ja="9つのサービスで、<br>進出に関わるCFO全業務をカバー" data-en="9 services covering every aspect<br>of your U.S. expansion">9つのサービスで、<br>進出に関わるCFO全業務をカバー</h2>
+    <div class="services-grid">
+      <div class="service-card fade-up"><div class="service-card-icon">🏢</div><h3 data-ja="法人設立" data-en="Entity Formation">法人設立</h3><p data-ja="米国法人（C-Corp）設立をEIN取得まで一括サポート。設立書類一式を全管理。" data-en="Delaware C-Corp registration with EIN — fully handled. All formation documents managed by Backstage.">米国法人（C-Corp）設立をEIN取得まで一括サポート。設立書類一式を全管理。</p></div>
+      <div class="service-card fade-up"><div class="service-card-icon">🏦</div><h3 data-ja="銀行口座開設・資金管理" data-en="U.S. Bank Account &amp; Cash Management">銀行口座開設・資金管理</h3><p data-ja="非米国人・非居住者でも対応。米国銀行口座の開設および送金・支払等の資金管理を丸ごとサポート。" data-en="Full support for non-U.S. residents. ACH transfers and debit cards available from day one.">非米国人・非居住者でも対応。米国銀行口座の開設および送金・支払等の資金管理を丸ごとサポート。</p></div>
+      <div class="service-card fade-up"><div class="service-card-icon">📊</div><h3 data-ja="経理・会計運用・決算" data-en="Accounting, Financials & Annual Statements">経理・会計運用・決算</h3><p data-ja="月次財務レポート、決算書作成、CF管理、会計ツールの設定・運用。日本在住スタッフが対応。" data-en="Monthly reports, cash flow management, annual statement preparation. Japan-based staff handle it all.">月次財務レポート、決算書作成、CF管理、会計ツールの設定・運用。日本在住スタッフが対応。</p></div>
+      <div class="service-card fade-up"><div class="service-card-icon">📈</div><h3 data-ja="税務申告" data-en="Tax Filing">税務申告</h3><p data-ja="DE州・CA州等への税務申告。提携会計事務所との窓口を一括対応。" data-en="Delaware franchise tax, California filings, and more. We liaise with partner CPA firms on your behalf.">DE州・CA州等への税務申告。提携会計事務所との窓口を一括対応。</p></div>
+      <div class="service-card fade-up"><div class="service-card-icon">✈️</div><h3 data-ja="ビザ取得サポート" data-en="Visa Application Support">ビザ取得サポート</h3><p data-ja="E-2・L-1・O-1等、提携弁護士と連携。書類作成・確認・提出サポートを一括対応。" data-en="E-2, L-1, O-1 and more. Partner immigration attorneys prepare and coordinate all documents.">E-2・L-1・O-1等、提携弁護士と連携。書類作成・確認・提出サポートを一括対応。</p></div>
+      <div class="service-card fade-up"><div class="service-card-icon">🛡️</div><h3 data-ja="保険アレンジ" data-en="Insurance Arrangement">保険アレンジ</h3><p data-ja="ビジネス保険の選定と代理店交渉。Workers Comp・General Liability等の手配。" data-en="General liability, workers' compensation, and more. We negotiate with brokers and handle the setup.">ビジネス保険の選定と代理店交渉。Workers Comp・General Liability等の手配。</p></div>
+      <div class="service-card optional fade-up"><div class="service-badge">OPTIONAL</div><div class="service-card-icon">🏖️</div><h3 data-ja="401(k)プラン設定" data-en="401(k) Plan Setup">401(k)プラン設定</h3><p data-ja="退職年金プランの選定・プロバイダーとの手続き。従業員採用時に必須。" data-en="Retirement plan selection, provider enrollment, and employee onboarding — handled end to end.">退職年金プランの選定・プロバイダーとの手続き。従業員採用時に必須。</p></div>
+      <div class="service-card optional fade-up"><div class="service-badge">OPTIONAL</div><div class="service-card-icon">🎯</div><h3 data-ja="Go-To-Market支援" data-en="Go-To-Market Support">Go-To-Market支援</h3><p data-ja="現地マーケ戦略・営業ネットワーク・パートナー紹介。米国市場への突破口を開く。" data-en="Local market strategy, sales network introductions, and partner referrals to open doors in the U.S.">現地マーケ戦略・営業ネットワーク・パートナー紹介。米国市場への突破口を開く。</p></div>
+      <div class="service-card optional fade-up"><div class="service-badge">OPTIONAL</div><div class="service-card-icon">💼</div><h3 data-ja="資金調達サポート" data-en="Fundraising Support">資金調達サポート</h3><p data-ja="ピッチデッキ作成支援・財務モデル構築・VCリスト作成。米国での資金調達を戦略的にサポート。" data-en="Pitch deck review, financial modeling, and VC introductions. Strategic support for your U.S. raise.">ピッチデッキ作成支援・財務モデル構築・VCリスト作成。米国での資金調達を戦略的にサポート。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing" id="pricing">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-ja="Pricing" data-en="Pricing">Pricing</p>
+    <h2 class="section-title fade-up" data-ja="シンプルな月額制" data-en="Simple, flat-rate monthly plans">シンプルな月額制</h2>
+    <p class="section-sub fade-up" data-ja="従業員数に応じたプランで、必要なサービスだけ。初期費用 $2,000（1年契約・自動更新）" data-en="Priced by headcount. Setup fee $2,000 — annual contract, auto-renewed.">従業員数に応じたプランで、必要なサービスだけ。初期費用 $2,000（1年契約・自動更新）</p>
+    <div class="pricing-grid">
+      <div class="pricing-card fade-up">
+        <p class="pricing-name">Mini</p>
+        <p class="pricing-price">$1,500</p>
+        <p class="pricing-period" data-ja="/ 月（〜5名）" data-en="/ month (up to 5 employees)">/ 月（〜5名）</p>
+        <p class="pricing-desc" data-ja="進出直後の小規模チームに最適" data-en="For newly formed teams just getting started.">進出直後の小規模チームに最適</p>
+        <ul class="pricing-list">
+          <li data-ja="法人設立サポート" data-en="Entity formation support">法人設立サポート</li>
+          <li data-ja="銀行口座開設" data-en="Bank account setup">銀行口座開設</li>
+          <li data-ja="経理設定・月次レポート" data-en="Accounting setup & monthly reports">経理設定・月次レポート</li>
+          <li data-ja="税務申告対応" data-en="Tax filing support">税務申告対応</li>
+          <li data-ja="Slackサポート" data-en="Slack support">Slackサポート</li>
+        </ul>
+        <a href="#contact" class="pricing-btn pricing-btn-outline" data-ja="相談する" data-en="Get in Touch">相談する</a>
+      </div>
+      <div class="pricing-card featured fade-up">
+        <div class="popular-badge" data-ja="最人気" data-en="Most Popular">最人気</div>
+        <p class="pricing-name">Standard</p>
+        <p class="pricing-price">$2,500</p>
+        <p class="pricing-period" data-ja="/ 月（〜10名）" data-en="/ month (up to 10 employees)">/ 月（〜10名）</p>
+        <p class="pricing-desc" data-ja="本格稼働フェーズのスタートアップに" data-en="For startups in full operation mode.">本格稼働フェーズのスタートアップに</p>
+        <ul class="pricing-list">
+          <li data-ja="Miniの全サービス" data-en="Everything in Mini">Miniの全サービス</li>
+          <li data-ja="資金調達コンサルティング（ビジネス・プラン作成）" data-en="Fundraising consulting (business plan)">資金調達コンサルティング（ビジネス・プラン作成）</li>
+          <li data-ja="401(k)プラン設定" data-en="401(k) plan setup">401(k)プラン設定</li>
+          <li data-ja="月1回MTG（60分）" data-en="Monthly 60-min meeting">月1回MTG（60分）</li>
+        </ul>
+        <a href="#contact" class="pricing-btn pricing-btn-solid" data-ja="相談する" data-en="Get in Touch">相談する</a>
+      </div>
+      <div class="pricing-card fade-up">
+        <p class="pricing-name">Pro</p>
+        <p class="pricing-price">$4,000</p>
+        <p class="pricing-period" data-ja="/ 月（〜20名）" data-en="/ month (up to 20 employees)">/ 月（〜20名）</p>
+        <p class="pricing-desc" data-ja="従業員採用・ビザが必要な成長期に" data-en="For scaling startups hiring U.S. employees.">従業員採用・ビザが必要な成長期に</p>
+        <ul class="pricing-list">
+          <li data-ja="Standardの全サービス" data-en="Everything in Standard">Standardの全サービス</li>
+          <li data-ja="Go-To-Market支援" data-en="Go-To-Market support">Go-To-Market支援</li>
+          <li data-ja="月2回MTG（各60分）" data-en="2× monthly meetings">月2回MTG（各60分）</li>
+          <li data-ja="優先Slackサポート" data-en="Priority Slack support">優先Slackサポート</li>
+        </ul>
+        <a href="#contact" class="pricing-btn pricing-btn-outline" data-ja="相談する" data-en="Get in Touch">相談する</a>
+      </div>
+      <div class="pricing-card enterprise-card fade-up">
+        <p style="font-size:32px;margin-bottom:16px;">🏢</p>
+        <p class="pricing-name">Enterprise</p>
+        <p class="pricing-price" style="font-size:28px;" data-ja="要相談" data-en="Custom">要相談</p>
+        <p style="font-size:13px;color:var(--gray);margin:12px 0 24px;" data-ja="20名以上・カスタム要件" data-en="20+ employees or custom requirements">20名以上・カスタム要件</p>
+        <a href="#contact" class="pricing-btn pricing-btn-outline" style="width:100%;" data-ja="お問い合わせ" data-en="Contact Us">お問い合わせ</a>
+      </div>
+    </div>
+    <p class="pricing-note fade-up"><span data-ja="✓ すべてのプランに <strong>日本語サポート</strong> が含まれます　✓ 解約は1ヶ月前通知" data-en="✓ All plans include <strong>bilingual support</strong> &nbsp; ✓ Cancel with 30 days notice">✓ すべてのプランに <strong>日本語サポート</strong> が含まれます　✓ 解約は1ヶ月前通知</span></p>
+  </div>
+</section>
+
+<!-- STEPS -->
+<section id="steps" style="background:#0A0A0A;padding:100px 48px;">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-ja="Company Formation Steps" data-en="How It Works">Company Formation Steps</p>
+    <h2 class="section-title fade-up" data-ja="Backstageと進める<br>米国法人設立の全ステップ" data-en="Your U.S. entity — up and running<br>in under 60 days">Backstageと進める<br>米国法人設立の全ステップ</h2>
+    <div class="steps-grid">
+      <div class="step-card fade-up"><div class="step-num">1</div><p class="step-period">Day 1</p><h3 data-ja="初回相談・要件確認" data-en="Initial Consultation">初回相談・要件確認</h3><p data-ja="事業内容・ビザ要件・必要サービスを確認。最適な法人形態（C-Corp）をご提案します。" data-en="We assess your business model, visa requirements, and service needs — then recommend the right structure.">事業内容・ビザ要件・必要サービスを確認。最適な法人形態（C-Corp）をご提案します。</p></div>
+      <div class="step-card fade-up"><div class="step-num">2</div><p class="step-period">Day 2–4</p><h3 data-ja="法人設立手続き" data-en="Entity Formation">法人設立手続き</h3><p data-ja="法人（C-Corp）を申請。EIN同時取得。設立書類一式をBackstageが全管理します。" data-en="Delaware C-Corp filed and EIN obtained. Backstage manages all formation documents from start to finish.">法人（C-Corp）を申請。EIN同時取得。設立書類一式をBackstageが全管理します。</p></div>
+      <div class="step-card fade-up"><div class="step-num">3</div><p class="step-period">Day 4–7</p><h3 data-ja="銀行口座開設・資金管理" data-en="U.S. Bank Account &amp; Cash Management">銀行口座開設・資金管理</h3><p data-ja="スムーズに口座開設。デビットカード・ACH振込が即日利用可能に。" data-en="We guide you through account opening. ACH transfers and debit cards ready immediately.">スムーズに口座開設。デビットカード・ACH振込が即日利用可能に。</p></div>
+      <div class="step-card fade-up"><div class="step-num">4</div><p class="step-period">Week 2</p><h3 data-ja="経理・キャップテーブル設定" data-en="Accounting & Cap Table Setup">経理・キャップテーブル設定</h3><p data-ja="経理ツールの初期設定・チャート設計。キャップテーブルの管理を開始。" data-en="Accounting tools configured and chart of accounts designed. Cap table management initiated.">経理ツールの初期設定・チャート設計。キャップテーブルの管理を開始。</p></div>
+      <div class="step-card fade-up"><div class="step-num">5</div><p class="step-period">Week 2–4</p><h3 data-ja="ビザ申請書類の準備" data-en="Visa Document Preparation">ビザ申請書類の準備</h3><p data-ja="E-2・L-1・O-1等、提携弁護士と連携。書類作成・確認・提出サポートを一括対応。" data-en="E-2, L-1, O-1 and more — our partner immigration attorneys lead the process. We handle all coordination.">E-2・L-1・O-1等、提携弁護士と連携。書類作成・確認・提出サポートを一括対応。</p></div>
+      <div class="step-card fade-up"><div class="step-num">6</div><p class="step-period">Month 2</p><h3 data-ja="保険・401(k)セットアップ" data-en="Insurance & 401(k) Setup">保険・401(k)セットアップ</h3><p data-ja="ビジネス保険の選定と代理店交渉。401(k)プロバイダー選定・従業員案内。" data-en="Business insurance selected and negotiated. 401(k) provider selected and employees enrolled.">ビジネス保険の選定と代理店交渉。401(k)プロバイダー選定・従業員案内。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="team">
+  <div class="section-inner">
+    <p class="section-label fade-up" data-ja="Our Team" data-en="Our Team">Our Team</p>
+    <h2 class="section-title fade-up" data-ja="日米をつなぐ<br>経験豊富な創業チーム" data-en="Experienced founders bridging<br>Japan and the United States">日米をつなぐ<br>経験豊富な創業チーム</h2>
+    <div class="team-grid">
+      <div class="team-card fade-up">
+        <img src="data:image/jpeg;base64,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" alt="Hideki Seki" style="width:100%;height:auto;object-fit:contain;background:#1A1A1A;display:block;"/>
+        <div class="team-card-body">
+          <p class="team-card-name">Hideki Seki</p>
+          <p class="team-card-role" data-ja="Founder / 米国公認会計士" data-en="Founder / U.S. CPA">Founder / 米国公認会計士</p>
+          <div class="team-card-tags">
+            <span class="team-tag">ex-Goldman Sachs</span>
+            <span class="team-tag">ex-Deutsche Bank</span>
+            <span class="team-tag">ex-Nomura</span>
+            <span class="team-tag">UTEC</span>
+          </div>
+          <p class="team-card-desc" data-ja="ニューヨークの大手会計事務所勤務ののち、メリル・リンチ、ゴールドマン・サックス、ドイツ銀行などで10年以上にわたり、戦略投資、証券化、企業再生やその他多数のM&A業務に携わる。野村証券を経て2013年にジェネシス・アドバイザリー（株）を設立。シリコンバレーの広告スタートアップC1X, Incへ財務担当副社長として参画。2017年より東京大学エッジ・キャピタルにてベンチャー・パートナーとしてスタートアップの上場支援。クロスボーダーM&AはMid Cap・Small Capを中心に20案件以上のDD・実行経験を有す。" data-en="After working at a major accounting firm in New York, spent 10+ years in strategic investment, securitization, and M&A at Merrill Lynch, Goldman Sachs, and Deutsche Bank. Founded Genesis Advisory Inc. in 2013. Joined C1X Inc. (Silicon Valley) as VP Finance. Since 2017, Venture Partner at the University of Tokyo Edge Capital (UTEC). 20+ cross-border M&A transactions.">ニューヨークの大手会計事務所勤務ののち、メリル・リンチ、ゴールドマン・サックス、ドイツ銀行などで10年以上にわたり、戦略投資、証券化、企業再生やその他多数のM&A業務に携わる。野村証券を経て2013年にジェネシス・アドバイザリー（株）を設立。シリコンバレーの広告スタートアップC1X, Incへ財務担当副社長として参画。2017年より東京大学エッジ・キャピタルにてベンチャー・パートナーとしてスタートアップの上場支援。クロスボーダーM&AはMid Cap・Small Capを中心に20案件以上のDD・実行経験を有す。</p>
+          <p style="margin-top:12px;font-size:11px;color:rgba(255,255,255,0.3);line-height:1.6;">元ドイツ銀行 戦略投資部ディレクター｜元野村証券 エグゼクティブ・ディレクター｜米国公認会計士（CPA）</p>
+        </div>
+      </div>
+      <div class="team-card fade-up">
+        <div class="team-avatar">👤</div>
+        <div class="team-card-body">
+          <p class="team-card-name" style="color:rgba(255,255,255,0.3);">Co-Founder</p>
+          <p class="team-card-role">プロフィール作成中</p>
+          <p class="team-card-desc" data-ja="プロフィール準備中。" data-en="Profile coming soon.">プロフィール作成中。</p>
+        </div>
+      </div>
+      <div class="team-card fade-up">
+        <div class="team-avatar">👤</div>
+        <div class="team-card-body">
+          <p class="team-card-name" style="color:rgba(255,255,255,0.3);">Co-Founder</p>
+          <p class="team-card-role">プロフィール作成中</p>
+          <p class="team-card-desc" data-ja="プロフィール準備中。" data-en="Profile coming soon.">プロフィール作成中。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contact">
+  <div class="section-inner" style="max-width:800px;">
+    <p class="section-label" style="text-align:center;">Get Started</p>
+    <h2 class="cta-title fade-up">Let's Get Started!</h2>
+    <p class="cta-tagline fade-up">We handle the back. You lead the front.</p>
+    <div class="cta-btns fade-up">
+      <a href="mailto:info@esnova.net" class="btn-primary" data-ja="無料相談を予約する" data-en="Book a Free Consultation">無料相談を予約する</a>
+      <a href="mailto:info@esnova.net" class="btn-secondary" data-ja="資料を請求する" data-en="Request a Brochure">資料を請求する</a>
+    </div>
+    <p class="cta-info fade-up">esnova.net &nbsp;|&nbsp; Bellevue, Washington, USA &nbsp;|&nbsp; <span data-ja="JETRO公式連携" data-en="Official JETRO Partner">JETRO公式連携</span></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">EsNova Partners<span>BACKSTAGE™</span></div>
+  <ul class="footer-links">
+    <li><a href="#services" data-ja="サービス" data-en="Services">サービス</a></li>
+    <li><a href="#pricing" data-ja="料金" data-en="Pricing">料金</a></li>
+    <li><a href="#team" data-ja="チーム" data-en="Team">チーム</a></li>
+    <li><a href="#contact" data-ja="お問い合わせ" data-en="Contact">お問い合わせ</a></li>
+  </ul>
+  <p class="footer-copy">© 2026 EsNova Partners, Inc. All rights reserved.</p>
+</footer>
+
+<script>
+// ── Scroll animation ──
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.fade-up').forEach(el => obs.observe(el));
+
+// ── Language switcher ──
+let currentLang = 'ja';
+
+function setLang(lang) {
+  currentLang = lang;
+
+  // Toggle button styles
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
+
+  // Switch html lang attribute
+  document.documentElement.lang = lang;
+
+  // Switch all data-ja / data-en elements
+  document.querySelectorAll('[data-ja][data-en]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text !== null) {
+      // Use innerHTML to support <br> tags
+      el.innerHTML = text;
+    }
+  });
+
+  // Switch section titles that contain <br>
+  document.querySelectorAll('.section-title[data-ja], .hero-sub[data-ja]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+}
+</script>
+</body>
+</html>
